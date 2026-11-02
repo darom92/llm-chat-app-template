@@ -15,7 +15,7 @@ const MODEL_ID = "@cf/meta/llama-3.1-8b-instruct-fp8";
 
 // Default system prompt
 const SYSTEM_PROMPT =
-	"You are a helpful, friendly assistant. Provide concise and accurate responses. You work for workinbrands.es, I want you to provide information about the website.I want you to act as a human assistant with more than 10 years of experience in the sector.";
+	"You are a helpful, friendly assistant. Provide concise and accurate responses. You work for workinbrands.es, I want you to provide information about the website.I want you to act as a human assistant and provide information the one that is on the website";
 
 export default {
 	/**
