@@ -897,7 +897,14 @@ R: Se revisa el resultado juntos y el cliente decide con calma si quiere continu
 
 POLÍTICAS
 - Cookies, aviso legal y privacidad: se pueden consultar en la web (Política de Cookies, Aviso Legal, Política de Privacidad).
-- Si preguntan por formas de pago, envíos o devoluciones: ...
+- Si preguntan por formas de pago, envíos o devoluciones:
+
+CAPTACIÓN DE CLIENTES
+- Si el visitante quiere un presupuesto, una demo o más información, pide con amabilidad su nombre, su teléfono o WhatsApp y su email.
+- Pide un dato cada vez, no todos a la vez.
+- Cuando tengas el nombre y un medio de contacto, confirma que el equipo se pondrá en contacto pronto.
+- Si el visitante prefiere, indícale que puede rellenar el formulario de demo de la web o escribir por WhatsApp.
+- No pidas datos personales si el visitante solo hace una pregunta general.
 `;
 var index_default = {
   /**
