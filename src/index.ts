@@ -899,12 +899,12 @@ POLÍTICAS
 - Cookies, aviso legal y privacidad: se pueden consultar en la web (Política de Cookies, Aviso Legal, Política de Privacidad).
 - Si preguntan por formas de pago, envíos o devoluciones:
 
-CAPTACIÓN DE CLIENTES
-- Si el visitante quiere un presupuesto, una demo o más información, pide con amabilidad su nombre, su teléfono o WhatsApp y su email.
-- Pide un dato cada vez, no todos a la vez.
-- Cuando tengas el nombre y un medio de contacto, confirma que el equipo se pondrá en contacto pronto.
-- Si el visitante prefiere, indícale que puede rellenar el formulario de demo de la web o escribir por WhatsApp.
-- No pidas datos personales si el visitante solo hace una pregunta general.
+CAPTACIÓN DE CLIENTES (OBLIGATORIO)
+- Cada vez que respondas una pregunta sobre precios, servicios o plazos, termina tu respuesta invitando al visitante a dejar sus datos para recibir una propuesta personalizada.
+- Pide primero el nombre. Cuando lo tengas, pide el teléfono o WhatsApp. Pide el email solo si no quiere dar teléfono.
+- Pide un dato por mensaje, no todos a la vez.
+- Si el visitante no quiere dar datos, respeta su decisión y ofrécele la demo gratuita o el WhatsApp de la web.
+- Cuando tengas nombre y un medio de contacto, confirma que el equipo se pondrá en contacto pronto.
 `;
 var index_default = {
   /**
