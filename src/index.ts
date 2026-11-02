@@ -15,7 +15,9 @@ const MODEL_ID = "@cf/meta/llama-3.1-8b-instruct-fp8";
 
 // Default system prompt
 const SYSTEM_PROMPT =
-	"You are a helpful, friendly assistant. Provide concise and accurate responses.";
+	"Eres el asistente virtual de [nombre de tu negocio].
+Responde solo con la información que tienes a continuación.
+Si la respuesta no está ahí, di que no tienes ese dato y ofrece el contacto.";
 
 export default {
 	/**
