@@ -837,7 +837,7 @@ globalThis.process = process_default;
 
 // src/index.ts
 var MODEL_ID = "@cf/meta/llama-3.1-8b-instruct-fp8";
-var SYSTEM_PROMPT = "Eres el asistente virtual de workinbrands, agencia de diseño web para negocios, autónomos y pymes.
+var SYSTEM_PROMPT = `Eres el asistente virtual de workinbrands, agencia de diseño web para negocios, autónomos y pymes.
 Responde siempre en español, de forma cercana y profesional.
 Responde solo con la información de este documento. Si no sabes algo o la respuesta no está aquí, dilo con honestidad y ofrece la demo gratuita o el contacto por WhatsApp.
 No prometas plazos exactos ni descuentos. Los plazos dependen del proyecto y se confirman tras la conversación inicial.
@@ -898,7 +898,7 @@ R: Se revisa el resultado juntos y el cliente decide con calma si quiere continu
 POLÍTICAS
 - Cookies, aviso legal y privacidad: se pueden consultar en la web (Política de Cookies, Aviso Legal, Política de Privacidad).
 - Si preguntan por formas de pago, envíos o devoluciones: ...
-";
+`;
 var index_default = {
   /**
    * Main request handler for the Worker
