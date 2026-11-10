@@ -16,8 +16,6 @@ let chatHistory = [
 	},
 ];
 let isProcessing = false;
-// Evita enviar el mismo contacto varias veces
-let leadSent = false;
 
 // Enviar con el formulario (botón o Enter)
 chatForm.addEventListener("submit", (e) => {
@@ -55,7 +53,7 @@ async function sendMessage(text) {
 		const response = await fetch("/api/chat", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ messages: chatHistory, leadSent }),
+			body: JSON.stringify({ messages: chatHistory }),
 		});
 
 		const data = await response.json();
@@ -63,15 +61,13 @@ async function sendMessage(text) {
 			throw new Error(data.error || "Failed to get response");
 		}
 
-		if (data.leadSent) leadSent = true;
-
 		addMessageToChat("assistant", data.response);
 		chatHistory.push({ role: "assistant", content: data.response });
 	} catch (error) {
 		console.error("Error:", error);
 		addMessageToChat(
 			"assistant",
-			"Lo siento, ha ocurrido un error. Inténtalo de nuevo en unos minutos.\n\n[Detalle técnico: " + (error && error.message ? error.message : String(error)) + "]",
+			"Lo siento, ha ocurrido un error. Inténtalo de nuevo en unos minutos.",
 		);
 	} finally {
 		typingIndicator.classList.remove("visible");
