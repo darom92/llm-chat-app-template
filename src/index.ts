@@ -14,7 +14,8 @@ const MODEL_ID = "@cf/meta/llama-3.1-8b-instruct-fp8";
 const FORM_EMAIL = "moradalimarketing@gmail.com";
 const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${FORM_EMAIL}`;
 
-const LEAD_PATTERN = /\[LEAD\]([\s\S]*?)\[\/LEAD\]/;
+// Acepta "[LEAD]{...}[/LEAD]" y variantes mal escritas como "[LEAD{...}"
+const LEAD_PATTERN = /\[LEAD\]?\s*(\{[\s\S]*?\})/;
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de WorkinBrands, agencia de diseño web para negocios, autónomos y pymes.
 Responde siempre en español, de forma cercana, clara y profesional.
@@ -111,9 +112,10 @@ CAPTACIÓN DE CLIENTES (OBLIGATORIO)
 - Pide un dato por mensaje, no todos a la vez.
 - Antes de pedir el teléfono o el email, pide permiso: "Para que el equipo te contacte, guardaremos tu nombre y tu contacto según nuestra Política de Privacidad. ¿Te parece bien?"
 - Si el visitante no quiere dar datos o no da permiso, respeta su decisión y ofrécele la demo gratuita o el WhatsApp de la web.
-- Cuando tengas nombre, un medio de contacto y el permiso, confirma que el equipo se pondrá en contacto pronto y añade al final de tu respuesta, en una línea aparte, exactamente este formato:
+- Solo cuando el visitante te haya dado su nombre, un teléfono o email REAL que él mismo ha escrito, y haya dicho que sí da permiso, confirma que el equipo se pondrá en contacto pronto y añade al final de tu respuesta, en una línea aparte, exactamente este formato, con los datos reales:
 [LEAD]{"nombre":"NOMBRE","contacto":"TELÉFONO_O_EMAIL","necesidad":"resumen breve de lo que busca"}[/LEAD]
-- Esa línea [LEAD] es invisible para el visitante: no la expliques ni la menciones. Solo la añades una vez, cuando tengas todos los datos.
+- Si todavía no tienes el teléfono o el email, NO escribas la línea [LEAD]. Nunca pongas texto de relleno como "(esperando contacto)" dentro de los datos.
+- Esa línea es invisible para el visitante: no la expliques ni la menciones. Solo la añades una vez.
 `;
 
 export default {
@@ -172,14 +174,14 @@ async function handleChatRequest(
 		let texto: string = resultado.response ?? "";
 		let leadEnviado = yaEnviado;
 
-		// Si el modelo ha generado datos de contacto completos, los enviamos a FormSubmit
+		// Buscar el JSON aunque la etiqueta venga mal escrita (p. ej. "[LEAD{" o sin cierre)
 		const match = texto.match(LEAD_PATTERN);
 		if (match && !yaEnviado) {
 			leadEnviado = await enviarLead(match[1]);
 		}
 
-		// Quitar la etiqueta y todo lo que venga después, aunque esté incompleta
-		texto = texto.split("[LEAD]")[0].trim();
+		// Quitar la etiqueta y todo lo que venga después, esté bien escrita o no
+		texto = texto.replace(/\[\/?LEAD[\s\S]*$/i, "").trim();
 
 		return Response.json({ response: texto, leadSent: leadEnviado });
 	} catch (error) {
@@ -208,6 +210,12 @@ async function enviarLead(textoJson: string): Promise<boolean> {
 
 		// Sin nombre ni contacto no hay nada que enviar
 		if (!datos.nombre || !datos.contacto) return false;
+
+		// El contacto debe ser un email o un teléfono real, no texto de relleno
+		const contacto = datos.contacto.trim();
+		const esEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contacto);
+		const esTelefono = /^\+?[\d\s()-]{9,}$/.test(contacto);
+		if (!esEmail && !esTelefono) return false;
 
 		const respuesta = await fetch(FORMSUBMIT_URL, {
 			method: "POST",
